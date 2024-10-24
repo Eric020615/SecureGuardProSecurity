@@ -22,5 +22,5 @@ export const userInforformDataJson = {
 export const signInformDataJson = {
 	email: '',
 	password: '',
-	role: [RoleEnum.RESIDENT, RoleEnum.RESIDENT_SUBUSER], // Default value
+	role: [RoleEnum.STAFF], // Default value
 }

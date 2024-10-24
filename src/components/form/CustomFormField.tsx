@@ -201,7 +201,7 @@ const CustomFormField = (
 	return (
 		<View className={`space-y-2 ${props.containerStyle}`}>
 			{props.title && (
-				<Text className={`text-base text-black ${props.textStyle}`}>{props.title}</Text>
+				<Text className={`text-base text-black ${props.textStyle} my-2`}>{props.title}</Text>
 			)}
 			{renderInput()}
 			{props.errorMessage && <Text className="text-red-700 mx-2">{props.errorMessage}</Text>}
