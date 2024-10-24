@@ -49,7 +49,7 @@ const App = () => {
 						<CustomButton
 							title="Get Started"
 							handlePress={() => {
-								router.push('/home')
+								router.push('/sign-in')
 							}}
 							containerStyles="bg-primary p-3 w-full m-4"
 						/>

@@ -57,6 +57,27 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
+          name="parcel"
+          options={{
+            title: "Parcel",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={
+                  <MaterialCommunityIcons
+                    name="package-variant-closed"
+                    color={color}
+                    size={24}
+                  />
+                }
+                color={color}
+                name="package"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="profile"
           options={{
             title: "Profile",
