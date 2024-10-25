@@ -34,7 +34,7 @@ const CustomButton = ({
 				<View className={`${iconStyles}`}>{leftReactNativeIcons}</View>
 			) : null}
 			{title && (
-				<Text className={`text-white font-psemibold text-lg self-center ${textStyles}`}>
+				<Text className={`font-psemibold self-center ${textStyles}`}>
 					{title}
 				</Text>
 			)}

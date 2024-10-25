@@ -15,7 +15,7 @@ const CameraPage = () => {
 	const [facing, setFacing] = useState<CameraType>('back')
 	const [flash, setFlash] = useState(false)
 	const cameraRef = useRef<CameraView | null>(null)
-	const { retakePictureAction, takePictureAction, image } = useParcel()
+	const { retakePictureAction, takePictureAction, saveImageAction, image } = useParcel()
 
 	useEffect(() => {
 		;(async () => {
@@ -63,9 +63,7 @@ const CameraPage = () => {
 	}
 
 	const saveImage = async () => {
-		if (image) {
-			const base64 = await convertImageToBase64(image)
-		}
+		router.push('/parcel/create')
 	}
 
 	return (
@@ -81,7 +79,7 @@ const CameraPage = () => {
 			{!image ? (
 				<View className="flex-1">
 					<CameraView style={styles.camera} facing={facing} ref={cameraRef} enableTorch={flash}>
-						<View className='bg-transparent flex-1'>
+						<View className="bg-transparent flex-1">
 							<View className="flex-row justify-between px-8 py-4">
 								<CustomButton
 									handlePress={toggleCameraFacing}
@@ -115,14 +113,14 @@ const CameraPage = () => {
 								retakePictureAction()
 							}}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
+							textStyles="text-base text-white font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="retweet" color={'#f1f1f1'} size={28} />}
 						/>
 						<CustomButton
 							title="Save"
 							handlePress={saveImage}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
+							textStyles="text-base text-white font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="check" color={'#f1f1f1'} size={28} />}
 						/>
 					</View>
@@ -132,7 +130,7 @@ const CameraPage = () => {
 							title="Take a picture"
 							handlePress={takePicture}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
+							textStyles="text-base text-white font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="camera" color={'#f1f1f1'} size={28} />}
 						/>
 					</>

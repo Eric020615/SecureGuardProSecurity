@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import { useApplication } from '@store/application/useApplication'
 import { useModal } from '@store/modal/useModal'
@@ -10,6 +10,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import CustomFormField from '@components/form/CustomFormField'
 import ActionConfirmationModal from '@components/modals/ActionConfirmationModal'
+import { useParcel } from '@store/parcel/useParcel'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 interface CreateParcel {
 	floor: string
@@ -19,6 +21,7 @@ interface CreateParcel {
 const CreateParcelPage = () => {
 	const { isLoading } = useApplication()
 	const { resetModalAction } = useModal()
+	const { image } = useParcel()
 
 	useEffect(() => {
 		resetModalAction()
@@ -33,13 +36,13 @@ const CreateParcelPage = () => {
 		enableReinitialize: true,
 		validateOnBlur: false,
 		initialValues: {
-            floor: "",
-            unitNumber: ""
-        } as CreateParcel,
+			floor: '',
+			unitNumber: '',
+		} as CreateParcel,
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
-            console.log(values)
-        },
+			console.log(values)
+		},
 	})
 
 	return (
@@ -63,9 +66,23 @@ const CreateParcelPage = () => {
 						/>
 					</View>
 					<Text className="text-3xl text-black font-bold mt-6">Record Parcel</Text>
-					<View>
+					<View className='mt-8'>
+						<View className="items-center">
+							{image ? (
+								<Image source={{ uri: image.uri }} className="w-full aspect-[16/9] rounded-lg" />
+							) : (
+								<View className="w-24 h-24 bg-slate-300 rounded-full flex items-center justify-center">
+									<MaterialCommunityIcons name="package-variant-closed" color="#10312b" size={24} />
+								</View>
+							)}
+							<CustomButton
+								title={image ? 'Retake' : 'Take Photo'}
+								handlePress={() => router.push('/camera')}
+								textStyles="text-primary text-lg font-bold"
+								containerStyles="bg-transparent self-center mt-3"
+							/>
+						</View>
 						<CustomFormField
-							containerStyle="mt-4"
 							title="Floor"
 							textStyle="text-base font-bold"
 							type="Text"
