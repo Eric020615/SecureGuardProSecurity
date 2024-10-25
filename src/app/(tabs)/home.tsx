@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 const Home = () => {
 	const router = useRouter()
 	const handlePress = () => {
-		router.push('/parcel/create')
+		router.push('/camera')
 	}
 
 	return (

@@ -7,6 +7,12 @@ const ScreenLayout = () => {
 		<>
 			<Stack>
 				<Stack.Screen
+					name="camera/index"
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
 					name="parcel/create"
 					options={{
 						headerShown: false,
