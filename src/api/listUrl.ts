@@ -42,40 +42,6 @@ export const listUrl = {
             path: 'user/profile/',
             type: IType.put
         },
-        createSubUser: {
-            path: 'user/sub-user/create/',
-            type: IType.post
-        },
-        getSubUserList: {
-            path: 'user/sub-user/list/',
-            type: IType.get
-        },
-        editSubUserStatusById: {
-            path: 'user/sub-user/',
-            type: IType.put
-        },
-        deleteSubUserById: {
-            path: 'user/sub-user/',
-            type: IType.delete
-        }
-    },
-    facility: {
-        facilityBooking: {
-            path: "facility/create/",
-            type: IType.post
-        },
-        getFacilityBookingHistory: {
-            path: "facility/",
-            type: IType.get
-        },
-        cancelFacilityBooking: {
-            path: "facility/cancel/",
-            type: IType.put
-        },
-        checkAvailabilitySlot: {
-            path: "facility/available-slot/check",
-            type: IType.get
-        },
     },
     notice: {
         getNoticesByResident: {
@@ -83,22 +49,16 @@ export const listUrl = {
             type: IType.get
         }
     },
-    visitor: {
-        createVisitor: {
-            path: "visitor/create/",
-            type: IType.post
-        },
-        editVisitorById: {
-            path: "visitor/edit/",
-            type: IType.put
-        },
-        getVisitors: {
-            path: "visitor/",
-            type: IType.get
-        },
-        getVisitorDetailsById: {
-            path: "visitor/details",
+    refData: {
+        getPropertyList: {
+            path: "ref-data/property/",
             type: IType.get
         }
-    }
+    },
+    parcelManagement: {
+        createParcel: {
+            path: 'parcel/create/',
+            type: IType.post
+        },
+    },
 }

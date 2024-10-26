@@ -12,6 +12,8 @@ import CustomFormField from '@components/form/CustomFormField'
 import ActionConfirmationModal from '@components/modals/ActionConfirmationModal'
 import { useParcel } from '@store/parcel/useParcel'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useRefData } from '@store/refData/useRefData'
+import { CreateParcelDto } from '@dtos/parcel/parcel.dto'
 
 interface CreateParcel {
 	floor: string
@@ -22,6 +24,12 @@ const CreateParcelPage = () => {
 	const { isLoading } = useApplication()
 	const { resetModalAction } = useModal()
 	const { image } = useParcel()
+	const { propertyList, getPropertyListAction } = useRefData()
+	const { createParcelAction } = useParcel()
+
+	useEffect(() => {
+		getPropertyListAction()
+	}, [])
 
 	useEffect(() => {
 		resetModalAction()
@@ -41,7 +49,10 @@ const CreateParcelPage = () => {
 		} as CreateParcel,
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
-			console.log(values)
+			await createParcelAction({
+				floor: values.floor,
+				unit: values.unitNumber,
+			} as CreateParcelDto)
 		},
 	})
 
@@ -66,7 +77,7 @@ const CreateParcelPage = () => {
 						/>
 					</View>
 					<Text className="text-3xl text-black font-bold mt-6">Record Parcel</Text>
-					<View className='mt-8'>
+					<View className="mt-8">
 						<View className="items-center">
 							{image ? (
 								<Image source={{ uri: image.uri }} className="w-full aspect-[16/9] rounded-lg" />
@@ -84,32 +95,53 @@ const CreateParcelPage = () => {
 						</View>
 						<CustomFormField
 							title="Floor"
-							textStyle="text-base font-bold"
-							type="Text"
-							textValue={formik.values.floor}
-							onChangeText={(e) => {
+							containerStyle="flex-1 mr-2"
+							type="Picker"
+							selectedValue={formik.values.floor}
+							onValueChange={(e) => {
 								formik.setFieldValue('floor', e)
 							}}
-							placeholder={'Enter floor'}
+							items={
+								propertyList.map((floor, index) => {
+									return {
+										key: index,
+										label: floor.floorId,
+										value: floor.floorId,
+									}
+								}) || []
+							}
+							onBlur={formik.handleBlur('floor')}
 							errorMessage={
 								formik.touched.floor && formik.errors.floor && (formik.errors.floor as string)
 							}
+							placeholder={'Select floor'}
 						/>
 						<CustomFormField
-							containerStyle="mt-4"
-							title="Unit number"
-							textStyle="text-base font-bold"
-							type="Text"
-							textValue={formik.values.unitNumber}
-							onChangeText={(e) => {
+							title="Unit"
+							containerStyle="flex-1"
+							type="Picker"
+							selectedValue={formik.values.unitNumber}
+							onValueChange={(e) => {
 								formik.setFieldValue('unitNumber', e)
 							}}
-							placeholder={'Enter unit number'}
+							items={
+								propertyList
+									.find((floor) => floor.floorId === formik.values.floor)
+									?.units.map((unit, index) => {
+										return {
+											key: index,
+											label: unit.unitId,
+											value: unit.unitId,
+										}
+									}) || []
+							}
+							onBlur={formik.handleBlur('unitNumber')}
 							errorMessage={
 								formik.touched.unitNumber &&
 								formik.errors.unitNumber &&
 								(formik.errors.unitNumber as string)
 							}
+							placeholder={'Select unit'}
 						/>
 						<CustomButton
 							title="Submit"

@@ -45,23 +45,3 @@ export interface ResidentInformationDto {
 	unitNumber: string
 	supportedFiles: string[]
 }
-
-export interface CreateSubUserDto {
-	email: string
-}
-
-export interface GetSubUserDto {
-	userId: number
-	userGuid: string
-	firstName: string
-	lastName: string
-	userName: string
-	contactNumber: string
-	gender: string
-	dateOfBirth: string
-	status: boolean
-}
-
-export interface DeleteSubUserByIdDto {
-	subUserGuid: string
-}
