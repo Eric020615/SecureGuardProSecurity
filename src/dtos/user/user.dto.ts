@@ -41,7 +41,7 @@ export interface EditUserDetailsByIdDto {
 }
 
 export interface ResidentInformationDto {
-	floorNumber: string
-	unitNumber: string
+	floor: string
+	unit: string
 	supportedFiles: string[]
 }

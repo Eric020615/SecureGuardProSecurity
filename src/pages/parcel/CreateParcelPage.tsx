@@ -17,7 +17,7 @@ import { CreateParcelDto } from '@dtos/parcel/parcel.dto'
 
 interface CreateParcel {
 	floor: string
-	unitNumber: string
+	unit: string
 }
 
 const CreateParcelPage = () => {
@@ -37,7 +37,7 @@ const CreateParcelPage = () => {
 
 	const validationSchema = Yup.object().shape({
 		floor: Yup.string().min(1).required('Floor is required'),
-		unitNumber: Yup.string().min(1).required('Unit number is required'),
+		unit: Yup.string().min(1).required('Unit number is required'),
 	})
 
 	const formik = useFormik<CreateParcel>({
@@ -45,13 +45,13 @@ const CreateParcelPage = () => {
 		validateOnBlur: false,
 		initialValues: {
 			floor: '',
-			unitNumber: '',
+			unit: '',
 		} as CreateParcel,
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
 			await createParcelAction({
 				floor: values.floor,
-				unit: values.unitNumber,
+				unit: values.unit,
 			} as CreateParcelDto)
 			formik.resetForm()
 			resetPictureAction()
@@ -122,9 +122,9 @@ const CreateParcelPage = () => {
 							title="Unit"
 							containerStyle="flex-1"
 							type="Picker"
-							selectedValue={formik.values.unitNumber}
+							selectedValue={formik.values.unit}
 							onValueChange={(e) => {
-								formik.setFieldValue('unitNumber', e)
+								formik.setFieldValue('unit', e)
 							}}
 							items={
 								propertyList
@@ -137,11 +137,11 @@ const CreateParcelPage = () => {
 										}
 									}) || []
 							}
-							onBlur={formik.handleBlur('unitNumber')}
+							onBlur={formik.handleBlur('unit')}
 							errorMessage={
-								formik.touched.unitNumber &&
-								formik.errors.unitNumber &&
-								(formik.errors.unitNumber as string)
+								formik.touched.unit &&
+								formik.errors.unit &&
+								(formik.errors.unit as string)
 							}
 							placeholder={'Select unit'}
 						/>

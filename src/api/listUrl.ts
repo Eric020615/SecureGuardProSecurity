@@ -57,8 +57,12 @@ export const listUrl = {
     },
     parcel: {
         createParcel: {
-            path: 'parcel/create/',
+            path: 'parcel/staff/',
             type: IType.post
         },
+        getParcels: {
+            path: "parcel/staff",
+            type: IType.get
+        }
     },
 }

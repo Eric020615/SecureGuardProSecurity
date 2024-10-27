@@ -1,11 +1,9 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import ParcelListPage from '@pages/parcel/ParcelListPage'
 
 const Parcel = () => {
   return (
-    <View>
-      <Text>Parcel</Text>
-    </View>
+    <ParcelListPage />
   )
 }
 
