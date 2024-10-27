@@ -8,6 +8,9 @@ export const getPropertyList = async (
 		const [success, response] = await GlobalHandler({
 			path: listUrl.refData.getPropertyList.path,
 			type: listUrl.refData.getPropertyList.type,
+			data: {
+				checkOccupied: false,
+			}
 		})
 		const result: IResponse<GetPropertyDto[]> = {
 			success,

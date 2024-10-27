@@ -51,6 +51,7 @@ const App = () => {
 							handlePress={() => {
 								router.push('/sign-in')
 							}}
+							textStyles='text-white'
 							containerStyles="bg-primary p-3 w-full m-4"
 						/>
 					</View>

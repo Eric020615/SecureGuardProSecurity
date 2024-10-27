@@ -7,8 +7,8 @@ export const createParcel = async (createParcelDto: CreateParcelDto): Promise<an
 	try {
 		const token = await AsyncStorage.getItem('token')
 		const [success, response] = await GlobalHandler({
-			path: listUrl.parcelManagement.createParcel.path,
-			type: listUrl.parcelManagement.createParcel.type,
+			path: listUrl.parcel.createParcel.path,
+			type: listUrl.parcel.createParcel.type,
 			data: createParcelDto,
 			_token: token,
 		})

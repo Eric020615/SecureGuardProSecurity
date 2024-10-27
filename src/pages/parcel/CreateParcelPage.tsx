@@ -25,7 +25,7 @@ const CreateParcelPage = () => {
 	const { resetModalAction } = useModal()
 	const { image } = useParcel()
 	const { propertyList, getPropertyListAction } = useRefData()
-	const { createParcelAction } = useParcel()
+	const { createParcelAction, resetPictureAction } = useParcel()
 
 	useEffect(() => {
 		getPropertyListAction()
@@ -53,6 +53,8 @@ const CreateParcelPage = () => {
 				floor: values.floor,
 				unit: values.unitNumber,
 			} as CreateParcelDto)
+			formik.resetForm()
+			resetPictureAction()
 		},
 	})
 
