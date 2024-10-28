@@ -1,15 +1,31 @@
 {
   "compilerOptions": {
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@assets/*": ["./src/assets/*"],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
       // "@/*": ["./*"],
-      "@store/*": ["./src/store/*"],
-      "@config/*": ["./src/config/*"],
-      "@api/*": ["./src/api/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@dtos/*": ["./src/dtos/*"],
-      "@helpers/*": ["./src/helpers/*"]
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@dtos/*": [
+        "./src/dtos/*"
+      ],
+      "@helpers/*": [
+        "./src/helpers/*"
+      ]
     }
   },
   "extends": "expo/tsconfig.base",
@@ -24,7 +40,7 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "declarations.d.ts",
-    "nativewind.d.ts"
+    "nativewind-env.d.ts"
   ],
   "exclude": [
     "node_modules"
