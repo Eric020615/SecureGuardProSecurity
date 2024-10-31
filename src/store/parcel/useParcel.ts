@@ -4,7 +4,7 @@ import { CameraCapturedPicture, CameraView } from 'expo-camera'
 import { MutableRefObject } from 'react'
 import { CreateParcelDto, GetParcelDto } from '@dtos/parcel/parcel.dto'
 import { createParcel, getParcels } from '@api/parcelService/parcelService'
-import { convertImageToBase64 } from '@helpers/file'
+import { convertImageToGeneralFile } from '@helpers/file'
 
 interface State {
 	image: CameraCapturedPicture | null
@@ -46,8 +46,8 @@ export const useParcel = create<State & Actions>((set, get) => ({
 		return generalAction(
 			async () => {
 				const { image } = get()
-				const base64 = await convertImageToBase64(image)
-				createParcelDto.parcelImage = base64
+				const file = await convertImageToGeneralFile(image)
+				createParcelDto.parcelImage = file
 				const response = await createParcel(createParcelDto)
 				if (!response?.success) {
 					throw new Error(response.msg)
