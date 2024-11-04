@@ -1,68 +1,62 @@
-import { IType } from "@config/constant"
+import { IType } from '@config/constant'
 
 export const listUrl = {
-    auth: {
-        logIn: {
-            path: 'auth/log-in/',
-            type: IType.post
-        },
-        signUp: {
-            path: 'auth/sign-up/',
-            type: IType.post
-        },
-        resetPassword: {
-            path: 'auth/reset-password/',
-            type: IType.post
-        },
-        forgotPassword: {
-            path: 'auth/reset-password/request',
-            type: IType.post
-        },
-        checkJwtAuth: {
-            path: 'auth/check-auth/',
-            type: IType.get
-        },
-    },
-    faceAuth: {
-        create: {
-            path: "face-auth/user/upload",
-            type: IType.post
-        }
-    },
-    user: {
-        createUser: {
-            path: 'user/create/',
-            type: IType.post
-        },
-        getUserProfileById: {
-            path: 'user/profile/',
-            type: IType.get
-        },
-        editUserProfileById: {
-            path: 'user/profile/',
-            type: IType.put
-        },
-    },
-    notice: {
-        getNoticesByResident: {
-            path: "notice/",
-            type: IType.get
-        }
-    },
-    refData: {
-        getPropertyList: {
-            path: "ref-data/property/",
-            type: IType.get
-        }
-    },
-    parcel: {
-        createParcel: {
-            path: 'parcel/staff/',
-            type: IType.post
-        },
-        getParcels: {
-            path: "parcel/staff",
-            type: IType.get
-        }
-    },
+	auth: {
+		logIn: {
+			path: 'auth/login',
+			type: IType.post,
+		},
+		signUp: {
+			path: 'auth/signup',
+			type: IType.post,
+		},
+		resetPassword: {
+			path: 'auth/reset-password',
+			type: IType.post,
+		},
+		requestPasswordReset: {
+			path: 'auth/reset-password/request',
+			type: IType.post,
+		},
+		checkAuth: {
+			path: 'auth/check',
+			type: IType.get,
+		},
+	},
+	faceAuth: {
+		upload: {
+			path: 'face-auth/user/upload',
+			type: IType.post,
+		},
+	},
+	users: {
+		create: {
+			path: 'users',
+			type: IType.post,
+		},
+		getById: {
+			path: 'users/details',
+			type: IType.get,
+		},
+		update: {
+			path: 'users',
+			type: IType.put,
+		},
+	},
+	refData: {
+		getProperties: {
+			path: 'ref-data/properties/',
+			type: IType.get,
+		},
+	},
+	parcel: {
+		create: {
+			path: 'parcels/staff/',
+			type: IType.post,
+		},
+		getAll: {
+			path: 'parcels/staff',
+			type: IType.get,
+		},
+	},
 }

@@ -15,14 +15,14 @@ interface IHandler {
 export interface IResponse<T> {
 	success: boolean
 	msg: string
-	data: T
+	data?: T
 }
 
 export interface IPaginatedResponse<T> {
 	success: boolean
 	msg: string
 	data: {
-		list: T[]
+		list: T[] | null
 		count: number
 	}
 }
@@ -31,6 +31,78 @@ export interface IServerResponse {
 	message: string
 	status: string
 	data: any
+}
+
+export const handleApiRequest = async <T>(
+	path: string,
+	type: string,
+	data: any,
+	token?: string,
+	params?: any,
+	pathVariables?: { placeholder: string; value: string }, // Optional parameter for path variable replacement
+): Promise<IResponse<T>> => {
+	try {
+		if (pathVariables) {
+			path = path.replace(pathVariables.placeholder, pathVariables.value)
+		}
+		const [success, response] = await GlobalHandler({
+			path,
+			type,
+			data,
+			_token: token,
+			params,
+		})
+		return {
+			success,
+			msg: success ? 'success' : response?.message,
+			data: success ? response?.data : undefined,
+		}
+	} catch (error) {
+		return {
+			success: false,
+			msg: error instanceof Error ? error.message : String(error),
+			data: null,
+		} as IResponse<T>
+	}
+}
+
+export const handleApiPaginationRequest = async <T>(
+	path: string,
+	type: string,
+	data: any,
+	token?: string,
+	params?: any,
+	pathVariables?: { placeholder: string; value: string }, // Optional parameter for path variable replacement
+): Promise<IPaginatedResponse<T>> => {
+	try {
+		if (pathVariables) {
+			path = path.replace(pathVariables.placeholder, pathVariables.value)
+		}
+		const [success, response] = await GlobalHandler({
+			path,
+			type,
+			data,
+			_token: token,
+			params,
+		})
+		return {
+			success,
+			msg: success ? 'success' : response?.message,
+			data: {
+				list: response?.data?.list,
+				count: response?.data?.count,
+			},
+		}
+	} catch (error) {
+		return {
+			success: false,
+			msg: error instanceof Error ? error.message : String(error),
+			data: {
+				list: null,
+				count: 0,
+			},
+		} as IPaginatedResponse<T>
+	}
 }
 
 const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerResponse]> => {
@@ -50,9 +122,9 @@ const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerRespon
 						// Perform the API request
 						if (type === 'get') {
 							response = await Axios.get(baseURL, {
-								params: data,
+								params: payload.params,
 								responseType: isBloob ? 'blob' : 'json',
-								paramsSerializer: (params : any) => parseParams(params),
+								paramsSerializer: (params) => parseParams(params),
 								headers: {
 									'Content-Type': 'application/json',
 									...(token != null
@@ -80,7 +152,7 @@ const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerRespon
 											: {}),
 									},
 									params: payload.params,
-									paramsSerializer: (params : any) => parseParams(params),
+									paramsSerializer: (params) => parseParams(params),
 								},
 							)
 						} else if (type === 'patch') {
@@ -133,13 +205,13 @@ const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerRespon
 										: {}),
 								},
 								params: payload.params,
-								paramsSerializer: (params: any) => parseParams(params),
+								paramsSerializer: (params) => parseParams(params),
 							})
 						}
 						success = true
-					} catch (error: any) {
+					} catch (error) {
 						if (error instanceof AxiosError) {
-							console.log(error.response?.data)
+							console.log(error.response.data)
 							response = error.response
 						}
 					}
@@ -147,7 +219,7 @@ const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerRespon
 				if (!success) {
 					console.log('All attempts to perform request failed')
 				}
-				return response?.data
+				return response.data
 			}
 			const response = await performRequest()
 			return [success, response]
@@ -158,7 +230,7 @@ const GlobalHandler = async (payload: IHandler): Promise<[boolean, IServerRespon
 	return _handler(payload)
 }
 
-const parseParams = (params: any) => {
+const parseParams = (params) => {
 	let options = ''
 
 	Object.keys(params).forEach((key) => {
