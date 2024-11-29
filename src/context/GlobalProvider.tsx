@@ -1,3 +1,4 @@
+import { RoleEnum } from '@config/constant/user'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useAuth } from '@store/auth/useAuth'
 import { router, useGlobalSearchParams, usePathname } from 'expo-router'
@@ -13,20 +14,27 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 	const checkToken = async (redirectToHome = false) => {
 		try {
-			if (pathname == '/sign-up' || pathname == '/sign-in' || pathname == '/user-information' || pathname == '/forgot-password') {
+			if (
+				pathname == '/sign-up' ||
+				pathname == '/sign-in' ||
+				pathname == '/user-information' ||
+				pathname == '/forgot-password'
+			) {
 				return
 			}
 			const value = await AsyncStorage.getItem('token')
 			if (!value) {
-				router.push('/sign-in')
+				throw new Error('Unauthorized')
 			}
-			const response = await checkJwtAuthAction(value as string)
-			if (response.success && redirectToHome) {
-				router.push('/home')
-				return
-			}
+			const response = await checkJwtAuthAction(value)
 			if (!response.success) {
-				router.push('/sign-in')
+				throw new Error('Unauthorized')
+			}
+			if (response.data.role !== RoleEnum.STAFF && response.data.role !== RoleEnum.SYSTEM_ADMIN) {
+				throw new Error('Invalid Role')
+			}
+			if (redirectToHome) {
+				router.push('/home')
 			}
 		} catch (error) {
 			router.push('/sign-in')

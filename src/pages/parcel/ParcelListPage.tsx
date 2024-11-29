@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import React, { useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { ITimeFormat } from '@config/constant'
 import CustomFlatList from '@components/list/CustomFlatList'
@@ -17,8 +16,6 @@ import { useApplication } from '@store/application/useApplication'
 import { GetParcelDto } from '@dtos/parcel/parcel.dto'
 import ActionConfirmationModal from '@components/modals/ActionConfirmationModal'
 import { convertDateStringToFormattedString } from '@helpers/time'
-import CustomButton from '@components/buttons/CustomButton'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const ParcelListPage = () => {
 	const { parcels, id, totalParcels, getParcelsAction, resetParcelAction } = useParcel()

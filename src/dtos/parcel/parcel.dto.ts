@@ -1,9 +1,9 @@
-import { GeneralFileDto, GeneralFileResponseDto } from "@dtos/application/application.dto"
+import { GeneralFileDto, GeneralFileResponseDto } from '@dtos/application/application.dto'
 
 export interface CreateParcelDto {
-    parcelImage: GeneralFileDto,
-    floor: string
-    unit: string
+	parcelImage: GeneralFileDto
+	floor: string
+	unit: string
 }
 
 export interface GetParcelDto {
@@ -12,8 +12,5 @@ export interface GetParcelDto {
 	parcelImage: GeneralFileResponseDto
 	floor: string
 	unit: string
-	createdBy: string
 	createdDateTime: string
-	updatedBy: string
-	updatedDateTime: string
 }

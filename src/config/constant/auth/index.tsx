@@ -1,5 +1,4 @@
 import { ICountry } from 'react-native-international-phone-number'
-import { RoleEnum } from '../user'
 import { getCurrentDate } from '@helpers/time'
 
 export const signUpformDataJson = {
@@ -22,5 +21,4 @@ export const userInforformDataJson = {
 export const signInformDataJson = {
 	email: '',
 	password: '',
-	role: [RoleEnum.STAFF], // Default value
 }

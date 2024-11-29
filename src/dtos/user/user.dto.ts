@@ -1,5 +1,5 @@
 import { Gender, RoleEnum } from '@config/constant/user'
-import { GeneralFile } from '@dtos/application/application.dto'
+import { GeneralFileDto } from '@dtos/application/application.dto'
 
 export interface UserInformationFormDto {
 	firstName: string
@@ -9,7 +9,7 @@ export interface UserInformationFormDto {
 	gender: string
 	dateOfBirth: string
 	staffId: string
-	supportedFiles: GeneralFile[]
+	supportedFiles: GeneralFileDto[]
 }
 
 export interface GetUserProfileByIdDto {
