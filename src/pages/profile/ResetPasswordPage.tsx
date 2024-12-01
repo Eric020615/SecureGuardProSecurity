@@ -23,8 +23,12 @@ const ResetPasswordPage = () => {
 	const validationSchema = Yup.object().shape({
 		currentPassword: Yup.string().required('Current Password is required'),
 		newPassword: Yup.string()
-			.required('New Password is required')
-			.min(6, 'New Password must be at least 6 characters long'),
+			.min(8, 'New password must be at least 8 characters long')
+			.matches(/[A-Z]/, 'New password must contain at least one uppercase letter')
+			.matches(/[a-z]/, 'New password must contain at least one lowercase letter')
+			.matches(/\d/, 'New password must contain at least one number')
+			.matches(/[@$!%*?&]/, 'New password must contain at least one special character')
+			.required('New password is required'),
 	})
 
 	const formik = useFormik<ResetPassword>({
