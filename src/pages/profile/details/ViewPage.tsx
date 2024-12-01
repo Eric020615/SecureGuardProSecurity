@@ -82,6 +82,42 @@ const userProfileViewPage = () => {
 					<View className="mt-2 w-full">
 						<Text className="text-base text-gray-500 font-semibold">Preferences</Text>
 						<CustomButton
+							title="Face ID"
+							handlePress={() => {
+								router.push('/face-auth')
+							}}
+							containerStyles="bg-gray-200 p-2 mt-2 w-full rounded-3xl flex flex-row justify-start"
+							textStyles="text-base !text-black flex-1"
+							leftReactNativeIcons={
+								<View className="mr-4 bg-white p-1 rounded-xl">
+									<MaterialCommunityIcons name="face-recognition" color={'#000000'} size={24} />
+								</View>
+							}
+							rightReactNativeIcons={
+								<Ionicons name="chevron-forward" color={'#000000'} size={24} />
+							}
+						/>
+						<CustomButton
+							title="Card"
+							handlePress={() => {
+								router.push('/card')
+							}}
+							containerStyles="bg-gray-200 p-2 mt-2 w-full rounded-3xl flex flex-row justify-start"
+							textStyles="text-base !text-black flex-1"
+							leftReactNativeIcons={
+								<View className="mr-4 bg-white p-1 rounded-xl">
+									<MaterialCommunityIcons
+										name="card-account-details-outline"
+										color={'#000000'}
+										size={24}
+									/>
+								</View>
+							}
+							rightReactNativeIcons={
+								<Ionicons name="chevron-forward" color={'#000000'} size={24} />
+							}
+						/>
+						<CustomButton
 							title="Password"
 							handlePress={() => {
 								router.push('/(screen)/reset-password')

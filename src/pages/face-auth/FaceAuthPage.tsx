@@ -7,14 +7,15 @@ import CustomButton from '@components/buttons/CustomButton'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { router } from 'expo-router'
 import ActionConfirmationModal from '@components/modals/ActionConfirmationModal'
-import { useParcel } from '@store/parcel/useParcel'
+import { useFaceAuth } from '@store/faceAuth/useFaceAuth'
+import { convertImageToGeneralFile } from '@helpers/file'
 
-const CameraPage = () => {
+const FaceAuthPage = () => {
 	const [cameraPermission, requestCameraPermission] = useCameraPermissions()
 	const [facing, setFacing] = useState<CameraType>('back')
 	const [flash, setFlash] = useState(false)
-	const cameraRef = useRef<CameraView | null>(null)
-	const { resetPictureAction, takePictureAction, image } = useParcel()
+	const cameraRef = useRef<CameraView>(null)
+	const { retakePictureAction, takePictureAction, uploadUserFaceAuthAction, image } = useFaceAuth()
 
 	useEffect(() => {
 		;(async () => {
@@ -62,42 +63,45 @@ const CameraPage = () => {
 	}
 
 	const saveImage = async () => {
-		router.push('/parcel/create')
+		if (image) {
+			const file = await convertImageToGeneralFile(image)
+			await uploadUserFaceAuthAction({
+				faceData: file,
+			})
+		}
 	}
 
 	return (
 		<SafeAreaView className="h-full">
 			<ActionConfirmationModal
 				onSuccessConfirm={() => {
-					router.push('/parcel/create')
+					router.push('/profile/view')
 				}}
 				onFailedConfirm={() => {
-					router.push('/camera')
+					router.push('/face-auth')
 				}}
 			/>
 			{!image ? (
-				<View className="flex-1">
-					<CameraView style={styles.camera} facing={facing} ref={cameraRef} enableTorch={flash}>
-						<View className="bg-transparent flex-1">
-							<View className="flex-row justify-between px-8 py-4">
-								<CustomButton
-									handlePress={toggleCameraFacing}
-									containerStyles="flex flex-row items-center justify-center h-10"
-									textStyles="text-base !text-[f1f1f1] font-bold ml-4"
-									leftReactNativeIcons={<Entypo name="retweet" color={'#f1f1f1'} size={28} />}
-								/>
-								<CustomButton
-									handlePress={toggleFlash}
-									containerStyles="flex flex-row items-center justify-center h-10"
-									textStyles="text-base !text-[f1f1f1] font-bold ml-4"
-									leftReactNativeIcons={
-										<Entypo name="flash" color={flash ? 'gray' : '#f1f1f1'} size={28} />
-									}
-								/>
-							</View>
+				<CameraView style={styles.camera} facing={facing} ref={cameraRef} enableTorch={flash}>
+					<View className="flex-1 bg-transparent">
+						<View className="flex-row justify-between px-8 py-4">
+							<CustomButton
+								handlePress={toggleCameraFacing}
+								containerStyles="flex flex-row items-center justify-center h-10"
+								textStyles="text-base text-[f1f1f1]] font-bold ml-4"
+								leftReactNativeIcons={<Entypo name="retweet" color={'#f1f1f1'} size={28} />}
+							/>
+							<CustomButton
+								handlePress={toggleFlash}
+								containerStyles="flex flex-row items-center justify-center h-10"
+								textStyles="text-base text-[f1f1f1]] font-bold ml-4"
+								leftReactNativeIcons={
+									<Entypo name="flash" color={flash ? 'gray' : '#f1f1f1'} size={28} />
+								}
+							/>
 						</View>
-					</CameraView>
-				</View>
+					</View>
+				</CameraView>
 			) : (
 				<View className="flex-1">
 					<Image source={{ uri: image.uri }} className="flex-1" />
@@ -109,17 +113,17 @@ const CameraPage = () => {
 						<CustomButton
 							title="Re-take"
 							handlePress={() => {
-								resetPictureAction()
+								retakePictureAction()
 							}}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-white font-bold ml-4"
+							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="retweet" color={'#f1f1f1'} size={28} />}
 						/>
 						<CustomButton
 							title="Save"
 							handlePress={saveImage}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-white font-bold ml-4"
+							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="check" color={'#f1f1f1'} size={28} />}
 						/>
 					</View>
@@ -129,7 +133,7 @@ const CameraPage = () => {
 							title="Take a picture"
 							handlePress={takePicture}
 							containerStyles="flex flex-row items-center justify-center h-10"
-							textStyles="text-base text-white font-bold ml-4"
+							textStyles="text-base text-[f1f1f1]] font-bold ml-4"
 							leftReactNativeIcons={<Entypo name="camera" color={'#f1f1f1'} size={28} />}
 						/>
 					</>
@@ -139,7 +143,7 @@ const CameraPage = () => {
 	)
 }
 
-export default CameraPage
+export default FaceAuthPage
 
 const styles = StyleSheet.create({
 	camera: {

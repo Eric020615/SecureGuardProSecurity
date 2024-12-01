@@ -6,20 +6,30 @@ const ScreenLayout = () => {
 	return (
 		<>
 			<Stack>
-				<Stack.Screen
-					name="camera/index"
-					options={{
-						headerShown: false,
-					}}
-				/>
+				{/* parcel */}
 				<Stack.Screen
 					name="parcel/create"
 					options={{
 						headerShown: false,
 					}}
 				/>
+				{/* face-auth */}
+				<Stack.Screen
+					name="face-auth/index"
+					options={{
+						headerShown: false,
+					}}
+				/>
+				{/* reset password */}
 				<Stack.Screen
 					name="reset-password/index"
+					options={{
+						headerShown: false,
+					}}
+				/>
+				{/* card */}
+				<Stack.Screen
+					name="card/index"
 					options={{
 						headerShown: false,
 					}}
