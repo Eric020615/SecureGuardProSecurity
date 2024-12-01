@@ -17,7 +17,7 @@ export const signUp = async (ISignUp: UserSignUpFormDto): Promise<IResponse<any>
 		ISignUp,
 		undefined,
 		{
-			role: RoleEnum.RESIDENT,
+			role: RoleEnum.STAFF,
 		},
 	)
 }

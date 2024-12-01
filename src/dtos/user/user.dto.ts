@@ -9,7 +9,7 @@ export interface UserInformationFormDto {
 	gender: string
 	dateOfBirth: string
 	staffId: string
-	supportedFiles: GeneralFileDto[]
+	supportedDocuments: GeneralFileDto[]
 }
 
 export interface GetUserProfileByIdDto {
@@ -21,7 +21,7 @@ export interface GetUserProfileByIdDto {
 	contactNumber: string
 	gender: Gender
 	role: RoleEnum
-	roleInformation?: ResidentInformationDto
+	roleInformation?: StaffInformationFormDto
 	dateOfBirth: string
 	isActive?: boolean
 	createdBy: string
@@ -40,8 +40,6 @@ export interface EditUserDetailsByIdDto {
 	dateOfBirth: string
 }
 
-export interface ResidentInformationDto {
-	floor: string
-	unit: string
-	supportedFiles: string[]
+export interface StaffInformationFormDto {
+	staffId: string
 }

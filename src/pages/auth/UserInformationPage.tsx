@@ -97,7 +97,7 @@ const UserInformationPage = () => {
 					gender: values.gender,
 					dateOfBirth: convertDateToDateString(values.dateOfBirth, ITimeFormat.isoDateTime),
 					staffId: values.staffId,
-					supportedFiles:
+					supportedDocuments:
 						selectedFiles.length > 0
 							? await Promise.all(
 									selectedFiles.map(async (selectedFile) => {
@@ -212,7 +212,7 @@ const UserInformationPage = () => {
 								}
 								setShowDateTime={setShowCalendar}
 								showDateTime={showCalendar}
-								placeholder={'Select date of birth'}
+								placeholder={'DOB'}
 							/>
 						</View>
 						<CustomFormField
@@ -228,7 +228,7 @@ const UserInformationPage = () => {
 							errorMessage={
 								formik.touched.gender && formik.errors.gender && (formik.errors.gender as string)
 							}
-							placeholder={'Select gender'}
+							placeholder={'Gender'}
 						/>
 					</View>
 					<CustomFormField
