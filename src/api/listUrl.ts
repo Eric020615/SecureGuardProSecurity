@@ -23,9 +23,17 @@ export const listUrl = {
 			type: IType.get,
 		},
 	},
-	faceAuth: {
-		upload: {
-			path: 'face-auth/user/upload',
+	cards: {
+		createCards: {
+			path: 'cards',
+			type: IType.post,
+		},
+		getCards: {
+			path: 'cards',
+			type: IType.get,
+		},
+		createFaceAuth: {
+			path: 'cards/face-auth',
 			type: IType.post,
 		},
 	},
@@ -49,9 +57,9 @@ export const listUrl = {
 			type: IType.get,
 		},
 	},
-	parcel: {
+	parcels: {
 		create: {
-			path: 'parcels/staff/',
+			path: 'parcels/staff',
 			type: IType.post,
 		},
 		getAll: {

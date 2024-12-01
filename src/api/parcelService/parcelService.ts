@@ -11,8 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export const createParcel = async (createParcelDto: CreateParcelDto): Promise<IResponse<any>> => {
 	const token = await AsyncStorage.getItem('token')
 	const response = await handleApiRequest<any>(
-		listUrl.parcel.create.path,
-		listUrl.parcel.create.type,
+		listUrl.parcels.create.path,
+		listUrl.parcels.create.type,
 		createParcelDto,
 		token,
 	)
@@ -25,8 +25,8 @@ export const getParcels = async (
 ): Promise<IPaginatedResponse<GetParcelDto>> => {
 	const token = await AsyncStorage.getItem('token')
 	const response = await handleApiPaginationRequest<GetParcelDto>(
-		listUrl.parcel.getAll.path,
-		listUrl.parcel.getAll.type,
+		listUrl.parcels.getAll.path,
+		listUrl.parcels.getAll.type,
 		{},
 		token,
 		{ limit, id },

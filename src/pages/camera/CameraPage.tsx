@@ -83,13 +83,13 @@ const CameraPage = () => {
 								<CustomButton
 									handlePress={toggleCameraFacing}
 									containerStyles="flex flex-row items-center justify-center h-10"
-									textStyles="text-base text-[f1f1f1] font-bold ml-4"
+									textStyles="text-base !text-[f1f1f1] font-bold ml-4"
 									leftReactNativeIcons={<Entypo name="retweet" color={'#f1f1f1'} size={28} />}
 								/>
 								<CustomButton
 									handlePress={toggleFlash}
 									containerStyles="flex flex-row items-center justify-center h-10"
-									textStyles="text-base text-[f1f1f1] font-bold ml-4"
+									textStyles="text-base !text-[f1f1f1] font-bold ml-4"
 									leftReactNativeIcons={
 										<Entypo name="flash" color={flash ? 'gray' : '#f1f1f1'} size={28} />
 									}
