@@ -90,7 +90,7 @@ const CreateParcelPage = () => {
 							)}
 							<CustomButton
 								title={image ? 'Retake' : 'Take Photo'}
-								handlePress={() => router.push('/camera')}
+								handlePress={() => router.push('/face-auth')}
 								textStyles="text-primary text-lg font-bold"
 								containerStyles="bg-transparent self-center mt-3"
 							/>

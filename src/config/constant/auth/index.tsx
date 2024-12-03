@@ -1,24 +1,23 @@
-import { ICountry } from 'react-native-international-phone-number'
-import { getCurrentDate } from '@helpers/time'
+import { GenderDescriptionEnum } from "../user"
 
-export const signUpformDataJson = {
-	email: '',
-	password: '',
-	confirmPassword: '',
+export const signUpConst = {
+    email: "",
+    password: "",
+    confirmPassword: ""
 }
 
-export const userInforformDataJson = {
-	firstName: '',
-	lastName: '',
-	userName: '',
-	countryCode: {} as ICountry,
-	phoneNumber: '',
-	gender: '',
-	dateOfBirth: getCurrentDate(),
+export const userInforConst = {
+    firstName: '',
+    lastName: '',
+    userName: '',
+    countryCode: null,
+    phoneNumber: '',
+    gender: 'M' as keyof typeof GenderDescriptionEnum,
 	staffId: '',
+    dateOfBirth: null
 }
 
-export const signInformDataJson = {
-	email: '',
-	password: '',
+export const signInConst = {
+    email: "",
+    password: "",
 }

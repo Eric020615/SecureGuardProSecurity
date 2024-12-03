@@ -7,7 +7,6 @@ export interface UserSignUpFormDto {
 export interface SignInFormDto {
 	email: string
 	password: string
-	role?: string[]
 }
 
 export interface ForgotPasswordDto {
