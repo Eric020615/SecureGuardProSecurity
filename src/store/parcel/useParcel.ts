@@ -14,7 +14,7 @@ interface State {
 }
 
 interface Actions {
-	resetPictureAction: () => void
+	retakePictureAction: () => void
 	takePictureAction: (cameraRef: MutableRefObject<CameraView | null>) => Promise<void>
 	createParcelAction: (createParcelDto: CreateParcelDto) => Promise<any>
 	getParcelsAction: (limit: number) => Promise<any>
@@ -26,7 +26,7 @@ export const useParcel = create<State & Actions>((set, get) => ({
 	parcels: [],
 	id: 0,
 	totalParcels: 0,
-	resetPictureAction: () => {
+	retakePictureAction: () => {
 		set({ image: null })
 	},
 	takePictureAction: async (cameraRef: MutableRefObject<CameraView | null>) => {

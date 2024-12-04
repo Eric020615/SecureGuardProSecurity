@@ -2,7 +2,7 @@ export enum RoleEnum {
 	SYSTEM_ADMIN = 'SA',
 	RESIDENT = 'RES',
 	RESIDENT_SUBUSER = 'SUB',
-    STAFF = 'STAFF',
+    STAFF = 'STF',
 }
 
 export enum RoleDescriptionEnum {

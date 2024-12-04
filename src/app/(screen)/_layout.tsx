@@ -13,6 +13,12 @@ const ScreenLayout = () => {
 						headerShown: false,
 					}}
 				/>
+				<Stack.Screen
+					name="parcel/camera/index"
+					options={{
+						headerShown: false,
+					}}
+				/>
 				{/* face-auth */}
 				<Stack.Screen
 					name="face-auth/index"

@@ -31,7 +31,7 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
 			if (!response.success) {
 				throw new Error('Unauthorized')
 			}
-			if (response.data.role !== RoleEnum.STAFF && response.data.role !== RoleEnum.SYSTEM_ADMIN) {
+			if (response.data.role !== RoleEnum.STAFF) {
 				throw new Error('Invalid Role')
 			}
 			if (redirectToHome) {

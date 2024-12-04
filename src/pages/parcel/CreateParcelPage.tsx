@@ -25,7 +25,7 @@ const CreateParcelPage = () => {
 	const { resetModalAction } = useModal()
 	const { image } = useParcel()
 	const { propertyList, getPropertyListAction } = useRefData()
-	const { createParcelAction, resetPictureAction } = useParcel()
+	const { createParcelAction, retakePictureAction } = useParcel()
 
 	useEffect(() => {
 		getPropertyListAction()
@@ -53,8 +53,6 @@ const CreateParcelPage = () => {
 				floor: values.floor,
 				unit: values.unit,
 			} as CreateParcelDto)
-			formik.resetForm()
-			resetPictureAction()
 		},
 	})
 
@@ -63,6 +61,7 @@ const CreateParcelPage = () => {
 			<ActionConfirmationModal
 				onSuccessConfirm={() => {
 					formik.resetForm()
+					retakePictureAction()
 					router.push('/home')
 				}}
 			/>
@@ -90,8 +89,8 @@ const CreateParcelPage = () => {
 							)}
 							<CustomButton
 								title={image ? 'Retake' : 'Take Photo'}
-								handlePress={() => router.push('/face-auth')}
-								textStyles="text-primary text-lg font-bold"
+								handlePress={() => router.push('/(screen)/parcel/camera')}
+								textStyles="!text-primary text-lg font-bold"
 								containerStyles="bg-transparent self-center mt-3"
 							/>
 						</View>
