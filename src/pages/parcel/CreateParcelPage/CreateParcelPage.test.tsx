@@ -2,10 +2,14 @@ import React from 'react'
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import CreateParcelPage from './CreateParcelPage'
 import { createParcel } from '@api/parcelService/parcelService'
+import { router } from 'expo-router'
 
 jest.mock('expo-router', () => ({
 	...jest.requireActual('expo-router'),
-	router: { push: jest.fn() },
+	router: {
+		...jest.requireActual('expo-router').router,
+		push: jest.fn(),
+	},
 }))
 
 jest.mock('@store/parcel/useParcel', () => {
@@ -87,11 +91,25 @@ describe('CreateParcelPage', () => {
 			},
 			triggerSubmit: async () => {
 				await act(async () => {
-					fireEvent.press(utils.getByText('Submit'))
+					fireEvent.press(utils.getByTestId('submit-button'))
+				})
+			},
+			triggerTakePhoto: async () => {
+				await act(async () => {
+					fireEvent.press(utils.getByTestId('take-photo-button'))
 				})
 			},
 		}
 	}
+
+	it('verifies the Circular button', async () => {
+		const { triggerTakePhoto } = await setup()
+		await triggerTakePhoto()
+		await waitFor(() => {
+			expect(router.push).toHaveBeenCalledTimes(1)
+			expect(router.push).toHaveBeenCalledWith('/(screen)/parcel/camera')
+		})
+	})
 
 	it('verify floor field', async () => {
 		const { fillFloor, queryByText, triggerSubmit } = await setup()

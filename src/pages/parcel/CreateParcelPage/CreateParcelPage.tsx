@@ -92,6 +92,7 @@ const CreateParcelPage = () => {
 								handlePress={() => router.push('/(screen)/parcel/camera')}
 								textStyles="!text-primary text-lg font-bold"
 								containerStyles="bg-transparent self-center mt-3"
+								testId='take-photo-button'
 							/>
 						</View>
 						<CustomFormField
@@ -150,6 +151,7 @@ const CreateParcelPage = () => {
 							containerStyles="bg-primary p-4 w-full mt-8 self-center"
 							isLoading={isLoading}
 							textStyles="text-sm text-white"
+							testId='submit-button'
 						/>
 					</View>
 				</View>
