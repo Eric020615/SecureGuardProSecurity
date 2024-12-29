@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateParcelPage from '@pages/parcel/CreateParcelPage'
+import CreateParcelPage from '@pages/parcel/CreateParcelPage/CreateParcelPage'
 
 const CreateParcel = () => {
   return (

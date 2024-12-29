@@ -93,6 +93,7 @@ const CustomFormField = (
 							secureTextEntry={props.isSecureTextEntry && !showPassword}
 							onBlur={props.onBlur}
 							keyboardType="default"
+							testID={`${props.title?.replace(/\s/g, '-').toLowerCase()}-form-field`}
 						/>
 						{props.isSecureTextEntry && (
 							<TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -123,6 +124,7 @@ const CustomFormField = (
 							onBlur={props.onBlur}
 							placeholder={props.placeholder}
 							onChangeText={props.setPhoneNumber}
+							testID={`${props.title?.replace(/\s/g, '-').toLowerCase()}-form-field`}
 						/>
 					</View>
 				)
@@ -135,6 +137,7 @@ const CustomFormField = (
 							title={props.buttonTitle ? props.buttonTitle : props.placeholder}
 							rightReactNativeIcons={<Ionicons name="caret-down" color={'#000000'} size={14} />}
 							textStyles={`${CustomFormFieldStyled.placeholderText} ${props.buttonTextStyles} font-psemibold !text-black`}
+							testId={`${props.title?.replace(/\s/g, '-').toLowerCase()}-button`}
 						/>
 						<DatePicker
 							modal
@@ -146,6 +149,7 @@ const CustomFormField = (
 							mode={props.mode}
 							minimumDate={props.minimumDate}
 							maximumDate={props.maximumDate}
+							testID={`${props.title?.replace(/\s/g, '-').toLowerCase()}-date-picker`}
 						/>
 					</>
 				)
@@ -156,6 +160,7 @@ const CustomFormField = (
 							selectedValue={props.selectedValue}
 							onValueChange={props.onValueChange}
 							onBlur={props.onBlur}
+							testID={`${props.title?.replace(/\s/g, '-').toLowerCase()}-form-field`}
 						>
 							{!props.selectedValue && <Picker.Item label={props.placeholder} value="" />}
 							{props.items.map((x) => (

@@ -36,7 +36,7 @@ const CreateParcelPage = () => {
 	}, [])
 
 	const validationSchema = Yup.object().shape({
-		floor: Yup.string().min(1).required('Floor is required'),
+		floor: Yup.string().min(1).required('Floor number is required'),
 		unit: Yup.string().min(1).required('Unit number is required'),
 	})
 
