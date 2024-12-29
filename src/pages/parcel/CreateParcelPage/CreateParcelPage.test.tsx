@@ -102,7 +102,7 @@ describe('CreateParcelPage', () => {
 		}
 	}
 
-	it('verifies the Circular button', async () => {
+	it('verifies the Take Photo button', async () => {
 		const { triggerTakePhoto } = await setup()
 		await triggerTakePhoto()
 		await waitFor(() => {
