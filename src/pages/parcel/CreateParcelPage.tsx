@@ -16,6 +16,7 @@ import { useRefData } from '@store/refData/useRefData'
 import { CreateParcelDto } from '@dtos/parcel/parcel.dto'
 
 interface CreateParcel {
+	image: any
 	floor: string
 	unit: string
 }
@@ -23,20 +24,14 @@ interface CreateParcel {
 const CreateParcelPage = () => {
 	const { isLoading } = useApplication()
 	const { resetModalAction } = useModal()
-	const { image } = useParcel()
 	const { propertyList, getPropertyListAction } = useRefData()
-	const { createParcelAction, retakePictureAction } = useParcel()
-
-	useEffect(() => {
-		getPropertyListAction()
-	}, [])
-
-	useEffect(() => {
-		resetModalAction()
-	}, [])
+	const { image, createParcelAction, retakePictureAction } = useParcel()
 
 	const validationSchema = Yup.object().shape({
-		floor: Yup.string().min(1).required('Floor is required'),
+		image: Yup.mixed()
+			.required('Parcel image is required')
+			.test('fileExists', 'Image is required', (value) => value !== null && value !== undefined),
+		floor: Yup.string().min(1).required('Floor number is required'),
 		unit: Yup.string().min(1).required('Unit number is required'),
 	})
 
@@ -44,6 +39,7 @@ const CreateParcelPage = () => {
 		enableReinitialize: true,
 		validateOnBlur: false,
 		initialValues: {
+			image: image || null,
 			floor: '',
 			unit: '',
 		} as CreateParcel,
@@ -55,6 +51,15 @@ const CreateParcelPage = () => {
 			} as CreateParcelDto)
 		},
 	})
+
+	useEffect(() => {
+		getPropertyListAction()
+		resetModalAction()
+	}, [])
+
+	useEffect(() => {
+		formik.setFieldValue('image', image)
+	}, [image])
 
 	return (
 		<SafeAreaView className="bg-slate-100 h-full">
@@ -88,11 +93,21 @@ const CreateParcelPage = () => {
 								</View>
 							)}
 							<CustomButton
-								title={image ? 'Retake' : 'Take Photo'}
-								handlePress={() => router.push('/(screen)/parcel/camera')}
+								title={image ? 'Retake' : 'Capture Photo'}
+								handlePress={() => {
+									if (image) {
+										retakePictureAction()
+									}
+									router.push('/(screen)/parcel/camera')
+								}}
 								textStyles="!text-primary text-lg font-bold"
 								containerStyles="bg-transparent self-center mt-3"
 							/>
+
+							{/* Display error message for image */}
+							{formik.touched.image && formik.errors.image && (
+								<Text className="text-red-700 mx-2">{formik.errors.image as string}</Text>
+							)}
 						</View>
 						<CustomFormField
 							title="Floor"
@@ -138,9 +153,7 @@ const CreateParcelPage = () => {
 							}
 							onBlur={formik.handleBlur('unit')}
 							errorMessage={
-								formik.touched.unit &&
-								formik.errors.unit &&
-								(formik.errors.unit as string)
+								formik.touched.unit && formik.errors.unit && (formik.errors.unit as string)
 							}
 							placeholder={'Select unit'}
 						/>
