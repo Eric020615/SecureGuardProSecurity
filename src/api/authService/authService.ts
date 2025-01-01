@@ -44,8 +44,8 @@ export const forgotPassword = async (
 }
 
 // Check authentication
-export const checkAuth = async (token: string): Promise<IResponse<any>> => {
-	return handleApiRequest<any>(listUrl.auth.checkAuth.path, listUrl.auth.checkAuth.type, {}, token)
+export const checkAuth = async (token: string, check: boolean): Promise<IResponse<any>> => {
+	return handleApiRequest<any>(listUrl.auth.checkAuth.path, listUrl.auth.checkAuth.type, {}, token, { check })
 }
 
 // Reset password

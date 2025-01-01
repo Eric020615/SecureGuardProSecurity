@@ -1,7 +1,18 @@
 import { create } from 'zustand'
-import { checkAuth, forgotPassword, resetPassword, signIn, signUp } from '@api/authService/authService'
+import {
+	checkAuth,
+	forgotPassword,
+	resetPassword,
+	signIn,
+	signUp,
+} from '@api/authService/authService'
 import { generalAction } from '@store/application/useApplication' // Import the generalAction utility
-import { ForgotPasswordDto, ResetPasswordDto, SignInFormDto, UserSignUpFormDto } from '@dtos/auth/auth.dto'
+import {
+	ForgotPasswordDto,
+	ResetPasswordDto,
+	SignInFormDto,
+	UserSignUpFormDto,
+} from '@dtos/auth/auth.dto'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface State {
@@ -14,7 +25,7 @@ interface Actions {
 	signInAction: (userSignInForm: SignInFormDto) => Promise<any>
 	resetPasswordAction: (resetPasswordDto: ResetPasswordDto) => Promise<any>
 	forgotPasswordAction: (ForgotPasswordDto: ForgotPasswordDto) => Promise<any>
-	checkJwtAuthAction: (token: string) => Promise<any>
+	checkJwtAuthAction: (token: string, check?: boolean) => Promise<any>
 	setTempTokenAction: (token: string) => void
 }
 
@@ -25,7 +36,7 @@ export const useAuth = create<State & Actions>((set) => ({
 		return generalAction(
 			async () => {
 				const response = await signUp(userSignUpForm)
-				if(!response?.success){
+				if (!response?.success) {
 					throw new Error(response.msg)
 				}
 				set({ isLogged: true, tempToken: response.data })
@@ -57,7 +68,7 @@ export const useAuth = create<State & Actions>((set) => ({
 		return generalAction(
 			async () => {
 				const response = await forgotPassword(ForgotPasswordDto)
-				if(!response?.success){
+				if (!response?.success) {
 					throw new Error(response.msg)
 				}
 				return response
@@ -71,7 +82,7 @@ export const useAuth = create<State & Actions>((set) => ({
 		return generalAction(
 			async () => {
 				const response = await resetPassword(resetPasswordDto)
-				if(!response?.success){
+				if (!response?.success) {
 					throw new Error(response.msg)
 				}
 				return response
@@ -81,11 +92,12 @@ export const useAuth = create<State & Actions>((set) => ({
 		)
 	},
 
-	checkJwtAuthAction: async (token: string) => {
+	// rmb check this whether work
+	checkJwtAuthAction: async (token: string, check?: boolean) => {
 		return generalAction(
 			async () => {
-				const response = await checkAuth(token)
-				if(!response?.success){
+				const response = await checkAuth(token, check)
+				if (!response?.success) {
 					throw new Error(response.msg)
 				}
 				return response
